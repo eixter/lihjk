@@ -382,7 +382,8 @@ def fetch_page(url):
   <script>
     $(function() {
       setTimeout(function () {
-        var mathcodeList = document.querySelectorAll('.htmledit_views img.mathcode');
+        var mathcodeList = document.querySelectorAll('.hide-article-box').style.display = 'none';
+        var mathcodeList = document.querySelector('.vip-mask').style.display = 'none';
         if (mathcodeList.length > 0) {
           for (let i = 0; i < mathcodeList.length; i++) {
             if (mathcodeList[i].complete) {
