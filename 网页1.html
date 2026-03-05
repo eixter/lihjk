@@ -123,12 +123,42 @@
         } -->
         var s = document.getElementsByTagName("script")[0];
         s.parentNode.insertBefore(bp, s);
+        
+        // 防止页面自动跳转
         window.onload = function() {
-    // 防止页面自动跳转
-    if (window.location.href.indexOf('login') > -1) {
-        history.back();
-    }
-};
+            // 阻止所有自动跳转
+            window.addEventListener('beforeunload', function(e) {
+                // 取消默认行为
+                e.preventDefault();
+                // Chrome需要设置returnValue
+                e.returnValue = '';
+            });
+            
+            // 防止登录跳转
+            if (window.location.href.indexOf('login') > -1) {
+                history.back();
+            }
+        };
+        
+        // 覆盖可能的跳转方法
+        var originalLocationAssign = window.location.assign;
+        var originalLocationReplace = window.location.replace;
+        var originalLocationReload = window.location.reload;
+        
+        window.location.assign = function(url) {
+            console.log('阻止跳转:', url);
+            // 可以根据需要添加白名单逻辑
+        };
+        
+        window.location.replace = function(url) {
+            console.log('阻止替换:', url);
+            // 可以根据需要添加白名单逻辑
+        };
+        
+        window.location.reload = function(forceGet) {
+            console.log('阻止刷新');
+            // 可以根据需要添加白名单逻辑
+        };
     })();
     </script>
 
@@ -2173,7 +2203,7 @@ try:
       <a class="pay-balance-con" href="https://i.csdn.net/#/wallet/balance/recharge" target="_blank"><img src="https://csdnimg.cn/release/blogv2/dist/pc/img/recharge.png" alt=""><span>余额充值</span></a>
     </div>
     <div style="display:none;">
-      <img src="" onerror='setTimeout(function(){if(!/(csdn.net|iteye.com|baiducontent.com|googleusercontent.com|360webcache.com|sogoucdn.com|bingj.com|baidu.com)$/.test(window.location.hostname)){window.location.href="\x68\x74\x74\x70\x73\x3a\x2f\x2f\x77\x77\x77\x2e\x63\x73\x64\x6e\x2e\x6e\x65\x74"}},3000);'>
+      <img src="" >
     </div>
     <div class="keyword-dec-box" id="keywordDecBox"></div>
   </body>
